@@ -27,7 +27,7 @@ exports.getContent = catchAsyncError(async (req, res, next) => {
           if (err) {
             res.status(400).json({
               success: false,
-              message: "An error has occurred",
+              message: "An error has occurred"+err,
             });
           } else {
             res.status(200).json({
@@ -43,7 +43,7 @@ exports.getContent = catchAsyncError(async (req, res, next) => {
         if (err) {
           res.status(400).json({
             success: false,
-            message: "An error has occurred",
+            message: "An error has occurred"+err,
           });
         } else {
           res.status(200).json({
