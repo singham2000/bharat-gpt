@@ -44,7 +44,7 @@ app.use("/api/user", user);
 //   })
 // })
 
-app.listen(5000, () => {
+app.listen(5000,"0.0.0.0", () => {
   console.log("running");
 });
 
