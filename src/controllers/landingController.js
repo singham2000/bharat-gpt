@@ -3,10 +3,10 @@ const mysql = require("mysql");
 const uuid = require("uuid");
 const db1 = mysql.createConnection({
   connectionLimit: 500,
-  user: "sql12714953",
-  host: "sql12.freemysqlhosting.net",
-  password: "qB5DCPwyic",
-  database: "sql12714953",
+  user: "root",
+  host: "localhost",
+  password: "",
+  database: "bharatgpt",
 });
 
 db1.connect(function (err) {
@@ -314,7 +314,7 @@ exports.updateBannerImage = catchAsyncError(async (req, res, next) => {
     values.push(hero_support);
   }
 
-  sql = sql.slice(0, -2); 
+  sql = sql.slice(0, -2);
   sql += " WHERE id = ?";
   values.push(req.query.id);
 
@@ -334,4 +334,3 @@ exports.updateBannerImage = catchAsyncError(async (req, res, next) => {
     });
   });
 });
-

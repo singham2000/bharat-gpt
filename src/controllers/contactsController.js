@@ -3,10 +3,10 @@ const mysql = require("mysql");
 
 const db1 = mysql.createConnection({
   connectionLimit: 500,
-  user: "sql12714953",
-  host: "sql12.freemysqlhosting.net",
-  password: "qB5DCPwyic",
-  database: "sql12714953",
+  user: "root",
+  host: "localhost",
+  password: "",
+  database: "bharatgpt",
 });
 
 db1.connect(function (err) {
@@ -133,4 +133,3 @@ exports.updateContacts = catchAsyncError(async (req, res, next) => {
     });
   });
 });
-

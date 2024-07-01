@@ -26,16 +26,16 @@ app.use('/uploads', express.static('uploads'));
 // });
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const landing = require("./src/routes/landingPage");
-const contact = require("./src/routes/contacts");
-const theming = require("./src/routes/theming");
-const aboutus = require("./src/routes/aboutus");
+// const landing = require("./src/routes/landingPage");
+// const contact = require("./src/routes/contacts");
+// const theming = require("./src/routes/theming");
+// const aboutus = require("./src/routes/aboutus");
 const user = require("./src/routes/userRoute");
 const content = require("./src/routes/content");
-app.use("/api/landing_page", landing);
-app.use("/api/contact", contact);
-app.use("/api/theming", theming);
-app.use("/api/aboutus", aboutus);
+// app.use("/api/landing_page", landing);
+// app.use("/api/contact", contact);
+// app.use("/api/theming", theming);
+// app.use("/api/aboutus", aboutus);
 app.use("/api/content", content);
 app.use("/api/user", user);
 // app.use("/api/landing_page",(req,res)=>{
@@ -44,7 +44,7 @@ app.use("/api/user", user);
 //   })
 // })
 
-app.listen(5050,"0.0.0.0", () => {
+app.listen(5000, () => {
   console.log("running");
 });
 

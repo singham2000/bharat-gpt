@@ -58,6 +58,7 @@ exports.getContent = catchAsyncError(async (req, res, next) => {
 });
 
 exports.updateContent = catchAsyncError(async (req, res, next) => {
+  console.log("hello", req.body);
   const { id, display_content, content_type } = req.body;
   if (content_type === "img") {
     const file = req.file;
