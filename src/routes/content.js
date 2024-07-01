@@ -4,10 +4,10 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const uploadDir = path.join(__dirname, "uploads");
-
+const { auth } = require('../middlewares/auth');
 // Check if the directory exists, and create it if not
 if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true }); // Create directory recursively
+  fs.mkdirSync(uploadDir, { recursive: true }); // Create directory recursively
 }
 
 // Multer storage configuration
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     // Generate a unique name for the file
-    const uniqueSuffix = Date.now() +  Math.round(Math.random() * 1e9);
+    const uniqueSuffix = Date.now() + Math.round(Math.random() * 1e9);
     const extension = path.extname(file.originalname);
     cb(null, file.fieldname + "-" + uniqueSuffix + extension);
   },
@@ -34,10 +34,11 @@ const {
   updateStatus,
 } = require("../controllers/contentController");
 
+
 router
   .route("/content")
   .get(getContent)
-  .post(upload.single("file"), updateContent);
+  .post(auth, upload.single("file"), updateContent);
 router.route("/stat").post(updateContent);
 
 module.exports = router;
