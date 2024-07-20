@@ -2,8 +2,9 @@ const catchAsyncError = require("../utils/catchAsyncError");
 const mysql = require("mysql");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secretKey = "your_secret_key_here";
-const expiresIn = "36500d";
+const { queryRec } = require("../utils/mails");
+const secretKey = process.env.secretKey;
+const expiresIn = process.env.expiresIn;
 const db1 = mysql.createConnection({
   connectionLimit: 500,
   user: process.env.user,
@@ -64,6 +65,7 @@ exports.login = catchAsyncError(async (req, res, next) => {
 
           if (bcrypt.compareSync(password, hashedb)) {
             const token = jwt.sign(payload, secretKey, { expiresIn });
+            queryRec(email, `sfsdf`, `sdfsdf`);
             res.status(200).json({
               success: true,
               message: "Success logged in",
@@ -84,4 +86,18 @@ exports.login = catchAsyncError(async (req, res, next) => {
       }
     }
   );
+});
+
+exports.sendMail = catchAsyncError(async (req, res, next) => {
+  const { email, name, country, number, role, query, description } = req.body;
+  try {
+    queryRec(email, name, country, number, role, query, description);
+    res.status(200).json({
+      message: "Sent",
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "bad request",
+    });
+  }
 });
