@@ -3,12 +3,11 @@ const mysql = require("mysql");
 
 const db1 = mysql.createConnection({
   connectionLimit: 500,
-  user: "sql12714953",
-  host: "sql12.freemysqlhosting.net",
-  password: "qB5DCPwyic",
-  database: "sql12714953",
+  user: process.env.user,
+  host: process.env.host,
+  password: process.env.password,
+  database: process.env.database,
 });
-
 db1.connect(function (err) {
   if (err) {
     console.log(err);
@@ -27,7 +26,7 @@ exports.getContent = catchAsyncError(async (req, res, next) => {
           if (err) {
             res.status(400).json({
               success: false,
-              message: "An error has occurred"+err,
+              message: "An error has occurred" + err,
             });
           } else {
             res.status(200).json({
@@ -43,7 +42,7 @@ exports.getContent = catchAsyncError(async (req, res, next) => {
         if (err) {
           res.status(400).json({
             success: false,
-            message: "An error has occurred"+err,
+            message: "An error has occurred" + err,
           });
         } else {
           res.status(200).json({
