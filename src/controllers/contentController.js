@@ -57,7 +57,6 @@ exports.getContent = catchAsyncError(async (req, res, next) => {
 });
 
 exports.updateContent = catchAsyncError(async (req, res, next) => {
-  console.log("hello", req.body);
   const { id, display_content, content_type } = req.body;
   if (content_type === "img") {
     const file = req.file;
@@ -66,13 +65,9 @@ exports.updateContent = catchAsyncError(async (req, res, next) => {
       return;
     }
     const fileName = file.filename;
-    console.log(fileName, file);
-    const filePath = file.path;
-    // const fileBuffer = req.file.buffer;
-    // const base64String = await fileBuffer.toString("base64");
     await db1.query(
-      "UPDATE content_table SET display_content = ? WHERE id=?",
-      [fileName, id],
+      "UPDATE content_table SET display_content = ?,content_type=? WHERE id=?",
+      [fileName, content_type, id],
       (err, result) => {
         if (err) {
           res.status(400).json({

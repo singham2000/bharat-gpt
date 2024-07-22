@@ -6,16 +6,7 @@ dotenv.config({
   path: "src/config/mail.env",
 });
 
-console.log(process.env.EMAIL, process.env.MAILPASSWORD);
-const queryRec = async (
-  email,
-  name,
-  country,
-  number,
-  role,
-  query,
-  description
-) => {
+const queryRec = async (email, name, country, number, role, query) => {
   try {
     const smtpTransport = nodemailer.createTransport({
       service: "gmail",
