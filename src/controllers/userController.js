@@ -5,21 +5,32 @@ const jwt = require("jsonwebtoken");
 const { queryRec } = require("../utils/mails");
 const secretKey = process.env.secretKey;
 const expiresIn = process.env.expiresIn;
-const db1 = mysql.createConnection({
+
+const dbConfig = {
   connectionLimit: 500,
   user: process.env.user,
   host: process.env.host,
   password: process.env.password,
   database: process.env.database,
-});
+};
 
-db1.connect(function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected!");
-  }
-});
+let db1;
+
+function connectToDatabase() {
+  db1 = mysql.createConnection(dbConfig);
+
+  db1.connect(function (err) {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      console.log("Retrying in 3 seconds...");
+      setTimeout(connectToDatabase, 3000); // Retry after 3 seconds
+    } else {
+      console.log("Connected!");
+    }
+  });
+}
+
+connectToDatabase();
 
 exports.addUser = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
